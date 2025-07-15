@@ -17,14 +17,14 @@ class RoutingTest extends TestCase
 
     public function testRouteParameterGet(){
         $response = $this->get('/movie/1');
-        $response->assertSeeText('2022');
+        $response->assertSeeText('2001');
     }
 
     public function testRouteParameterPut()
     {
         $response = $this->put('/movie/1', [
             'title' => 'Test',
-            'year' => '2022',
+            'year' => '2001',
             'genre' => 'Animal',
         ]);
 
@@ -37,12 +37,12 @@ class RoutingTest extends TestCase
     {
         $response = $this->patch('/movie/2', [
             'title' => 'Test',
-            'year' => '2023',
+            'year' => '2002',
         ]);
 
         $response->assertSeeText('Test')
         ->assertDontSeeText('Movie 2')
-        ->assertSeeText('2023');
+        ->assertSeeText('2002');
     }
 
     public function testRouteParameterDelete(){
