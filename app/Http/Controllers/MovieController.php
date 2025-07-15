@@ -39,15 +39,20 @@ class MovieController extends Controller implements HasMiddleware
         return response()->json($this->movies[$id - 1]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $request->merge(['votes' => 0]); // modifikasi isi request
+
         $this->movies[] = [
-                'title' => $request->get('title'),
-                'year' => $request->get('year'),
-                'rating' => $request->get('rating')
-            ];
+            'title' => $request->get('title'),
+            'year' => $request->get('year'),
+            'rating' => $request->get('rating'),
+            'votes' => $request->get('votes') // ← ambil dari request
+        ];
 
         return $this->movies;
     }
+
 
     public function update(Request $request, $id){
         $this->movies[$id - 1] = [

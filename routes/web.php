@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,20 +60,45 @@ Route::get('/login', function () {
     return 'Login page';
 })->name('login');
 
-Route::get('/admin/login', function () {
-    return 'Admin Login page';
-})->name('admin.login');
+Route::group(["prefix" => "admin", "as" => "admin."], function () use ($movies){
 
-Route::get('admin/dashboard', function () use ($movies){
+    Route::get('/login', function () {
+        return 'Admin Login page';
+    })->name('admin.login');
 
-    $movies[] = [
-        'title' => request('title'),
-        'year' => request('year'),
-        'genre' => request('genre'),
-        'sold' => request('sold')
-    ];
+    Route::get('/dashboard', function () {
 
-    return $movies;
-})->middleware( \App\Http\Middleware\EnsureUserHasRole::class. ':admin')
-    ->name('admin.dashboard');
+        $movies[] = [
+            'title' => request('title'),
+            'year' => request('year'),
+            'genre' => request('genre'),
+            'sold' => request('sold')
+        ];
+
+        return $movies;
+    })->middleware( \App\Http\Middleware\EnsureUserHasRole::class. ':admin')
+        ->name('admin.dashboard');
+
+});
+
+Route::controller(\App\Http\Controllers\InputController::class)
+        ->prefix('request')
+        ->group(function () {
+
+            Route::get('/','mapUpper');
+
+            Route::post('/','input');
+
+            Route::post('/date', 'inputDate');
+
+            Route::post('/login', 'login');
+
+            Route::post('/miss-email', 'missEmail');
+
+        });
+
+Route::post('/upload/picture',
+            [\App\Http\Controllers\FileUploadController::class, 'upload']
+            );
+
 
