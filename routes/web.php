@@ -22,49 +22,32 @@ for($i = 0; $i <= 3; $i++) {
 }
 
 Route::group([
-    'middleware' => 'isAuth',
     'prefix' => 'movie',
     'as' => 'movie.'
     ], function () use ($movies) {
 
-        Route::get('/', function () use ($movies) {
-            return $movies;
-        });
+        Route::get('/',
+                    [\App\Http\Controllers\MovieController::class, 'index']
+        );
 
-        Route::post('/', function () use ($movies){
-            $movies[] = [
-                'title' => request('title'),
-                'year' => request('year'),
-                'genre' => request('genre')
-            ];
+        Route::post('/',
+                    [\App\Http\Controllers\MovieController::class, 'store']
+                    );
 
-            return $movies;
-        });
+        Route::get('/{id}',
+                    [\App\Http\Controllers\MovieController::class, 'show']);
 
-        Route::get('/{id}', function ($id) use ($movies){
-            return $movies[$id-1];
-        })->middleware(['isMember']);
+        Route::put('/{id}', [
+            \App\Http\Controllers\MovieController::class, 'update'
+        ]);
 
-        Route::put('/{id}', function ($id) use ($movies){
-            $movies[$id-1]['title'] = request('title');
-            $movies[$id-1]['year'] = request('year');
-            $movies[$id-1]['genre'] = request('genre');
+        Route::patch('/{id}',
+                    [\App\Http\Controllers\MovieController::class, 'partial_update']
+        );
 
-            return $movies;
-        });
-
-        Route::patch('/{id}', function ($id) use ($movies){
-            $movies[$id-1]['title'] = request('title');
-            $movies[$id-1]['year'] = request('year');
-
-            return $movies;
-        });
-
-        Route::delete('/{id}', function ($id) use ($movies){
-            unset($movies[$id-1]);
-
-            return $movies;
-        });
+        Route::delete('/{id}',[
+            \App\Http\Controllers\MovieController::class, 'destroy'
+        ]);
 
 });
 
