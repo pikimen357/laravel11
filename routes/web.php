@@ -9,8 +9,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', function () {
-    return "<h1>Halo Dunia</h1>";
+Route::get('/home', function () {
+    return view('home');
 });
 
 $movies = [];
@@ -26,31 +26,21 @@ for($i = 0; $i <= 3; $i++) {
 
 Route::group([
     'prefix' => 'movie',
-    'as' => 'movie.'
+    'as' => 'movie.',
+    'controller' => \App\Http\Controllers\MovieController::class,
     ], function () use ($movies) {
 
-        Route::get('/',
-                    [\App\Http\Controllers\MovieController::class, 'index']
-        );
+        Route::get('/', 'index');
 
-        Route::post('/',
-                    [\App\Http\Controllers\MovieController::class, 'store']
-                    );
+        Route::post('/','store' );
 
-        Route::get('/{id}',
-                    [\App\Http\Controllers\MovieController::class, 'show']);
+        Route::get('/{id}','show');
 
-        Route::put('/{id}', [
-            \App\Http\Controllers\MovieController::class, 'update'
-        ]);
+        Route::put('/{id}', 'update');
 
-        Route::patch('/{id}',
-                    [\App\Http\Controllers\MovieController::class, 'partial_update']
-        );
+        Route::patch('/{id}','partial_update');
 
-        Route::delete('/{id}',[
-            \App\Http\Controllers\MovieController::class, 'destroy'
-        ]);
+        Route::delete('/{id}', 'destroy');
 
 });
 

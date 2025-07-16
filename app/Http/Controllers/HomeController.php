@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(Request $request){
-        $auth= $request->authenticated;
-        return $auth;
+//        $auth= $request->authenticated;
+//        return $auth;
+        return view('home');
     }
 }
