@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 Route::get('/', function () {
     return view('welcome');
@@ -99,6 +101,59 @@ Route::controller(\App\Http\Controllers\InputController::class)
 
 Route::post('/upload/picture',
             [\App\Http\Controllers\FileUploadController::class, 'upload']
-            );
+            )->name('upload.picture');
+
+Route::get('/picture/{filename}', [\App\Http\Controllers\FileUploadController::class, 'showPicture'])
+    ->name('picture.show');
+
+Route::get('/response', function () {
+    return response("OK")
+            ->header('Content-Type', 'text/plain');
+});
+
+Route::get('/cache-control', function () {
+    return Response::make("Page allow to cache", 200)
+                ->header('Cache-Control', 'public,max-age=7200');
+});
+
+Route::middleware('cache.headers:public;max_age=7200;etag')->group(function () {
+
+    Route::get('/home', [HomeController::class, 'index'])
+        ->name('home');
+
+    Route::get('/dashboard/login', function () {
+
+        $user = 'admin';
+
+        return response('login success', 200)
+            ->cookie('user', $user);
+    });
+
+    Route::get('/logout', function () {
+
+        // redirect to controller
+        return redirect()->action([HomeController::class, 'index'],
+                                    ['authenticated' => true]);
+    });
+
+    Route::get('/dashboard/logout', function () {
+//        return response('logout success', 200)
+//            ->withoutCookie('user');
+        return response('logout success', 200)
+            ->cookie('user', null);
+    });
+
+    Route::get('/privacy', function () {
+        return 'Privacy Policy';
+    });
+
+    Route::get('/terms', function () {
+        return 'Terms of Service';
+    });
+
+    Route::get('/laravel', function () {
+        return redirect()->away('https://laravel.com');
+    });
+});
 
 
