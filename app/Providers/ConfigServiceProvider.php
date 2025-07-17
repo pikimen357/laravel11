@@ -28,7 +28,7 @@ class ConfigServiceProvider extends ServiceProvider
 //            'theme' => 'dark',
 //            'description' => 'This is a config service provider',
 //        ];
-//
+
 //        View::share('config', $config);
 
 //        View::composer(['movies.index', 'movies.show', 'home'], function ($view) {

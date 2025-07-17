@@ -31,16 +31,18 @@ class MovieController extends Controller implements HasMiddleware
 //        ];
     }
 
-    public function index(){
+    public function index(Request $request){
 //        return response()->json([
 //            'movies' => $this->movies,
 //            'message' => 'success get all movies'
 //        ], 200);
+        $is_admin = $request->get('is_admin', false);
         $movies = $this->movies;
 //        return view('movies.index', ['movies' => $movies]);
         return view('movies.index', compact('movies'))
                 ->with([
-                    'titlePage' => 'Movie List',
+                    'titlePage' => 'List of Movies',
+                    'is_admin' => $is_admin,
                 ]);
 //        return view('movies.index')->with(['movies' => $movies]);
     }
