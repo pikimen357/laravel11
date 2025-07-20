@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
 Route::get('/home', function () {
@@ -28,19 +28,23 @@ Route::group([
     'prefix' => 'movie',
     'as' => 'movie.',
     'controller' => \App\Http\Controllers\MovieController::class,
-    ], function () use ($movies) {
+    ], function ()  {
 
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('index'); // route('movie.index')
 
-        Route::post('/','store' );
+        Route::get('/create', 'create')->name('create');
 
-        Route::get('/{id}','show');
+        Route::get('/{id}','show')->name('show');
 
-        Route::put('/{id}', 'update');
+        Route::post('/','store' )->name('store');
 
-        Route::patch('/{id}','partial_update');
+        Route::get('/{id}/edit','edit' )->name('edit');
 
-        Route::delete('/{id}', 'destroy');
+        Route::put('/{id}', 'update')->name('update');
+
+//        Route::patch('/{id}','partial_update');
+
+        Route::delete('/{id}', 'destroy')->name('destroy');
 
 });
 

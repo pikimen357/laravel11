@@ -1,30 +1,30 @@
-<?php
+{{--<?php--}}
 
-    $greeting = 'Hello everybody, I hope you fine';
+{{--    $greeting = 'Hello everybody, I hope you fine';--}}
 
-?>
+{{--?>--}}
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body>
+{{--<html lang="en">--}}
+{{--    <head>--}}
+{{--        <meta charset="UTF-8">--}}
+{{--        <meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
+{{--        <title>Home</title>--}}
+{{--        <script src="https://cdn.tailwindcss.com"></script>--}}
+{{--    </head>--}}
+{{--    <body>--}}
 
-        {{-- get $menu from public view (AppServiceProvider)  --}}
+{{--        --}}{{-- get $menu from public view (AppServiceProvider)  --}}
 {{--        <ul>--}}
 {{--            <?php foreach ($menu as $key => $value): ?>--}}
 {{--                <li><a href="<?php $value ?>"><?= $key ?></a></li>--}}
 {{--            <?php endforeach; ?>--}}
 {{--        </ul>--}}
 
-        <h1>Home Page</h1>
+{{--        <h1>Home Page</h1>--}}
 
-        <h5>FOREACH</h5>
-        <ul>
-                @foreach ($movies as $movie)
+{{--        <h5>FOREACH</h5>--}}
+{{--        <ul>--}}
+{{--                @foreach ($movies as $movie)--}}
 {{--                    @if($movie['year'] > 2011)--}}
 {{--                        @continue--}}
 {{--                    @endif--}}
@@ -48,10 +48,10 @@
 {{--                        {{ $movie['title'] }} - {{ $movie['year'] }}--}}
 {{--                    </p>--}}
 
-                    @include('partials._movie', ['movie' => $movie])
+{{--                    @include('partials._movie', ['movie' => $movie])--}}
 
-                @endforeach
-        </ul>
+{{--                @endforeach--}}
+{{--        </ul>--}}
 
 {{--        <h5>FOR</h5>--}}
 {{--       <ul>--}}
@@ -112,17 +112,31 @@
 {{--            @else--}}
 {{--                <li>Role: Unknown</li>--}}
 {{--            @endif--}}
-{{--            <li>Role: {{--}}
+{{--            <li>Role: --}}{{--}}--}}
 {{--                $user['role'] == 'admin' ? "Administrator" :--}}
 {{--                ($user['role'] == 'user' ? 'User' : 'Unknown')--}}
 {{--            }}</li>--}}
 {{--        </ul>--}}
 
-    </body>
-    <script>
+{{--    </body>--}}
+{{--    <script>--}}
 
-        // movies from HomeController that is converted to JSON javascript
-        var app = {{ Js::from($user) }};
-        console.log(app);
-    </script>
-</html>
+{{--        // movies from HomeController that is converted to JSON javascript--}}
+{{--        var app = {{ Js::from($user) }};--}}
+{{--        console.log(app);--}}
+{{--    </script>--}}
+{{--</html>--}}
+
+@extends('app')
+
+@section('content')
+{{--  Put your content here  --}}
+
+        <div class="border-t border-b border-gray-200 text-white">
+            <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-bold text-center">Welcome to laravel 11</h1>
+                <p class="text-xl text-center mt-6">This is a simple example of laravel 11</p>
+            </div>
+        </div>
+
+@endsection
