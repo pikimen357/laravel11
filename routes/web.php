@@ -6,7 +6,71 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 Route::get('/', function () {
-    return view('app');
+
+    $movies = [
+                [
+                    'title' =>  'Final Destination Bloodlines', //
+                    'description' => 'Plagued by a violent recurring nightmare, college student Stefanie heads home to track down the one person who might be able to break the cycle and save her family from the grisly demise that inevitably awaits them all..',
+                    'release_date' => '2025-05-14',
+                    'cast' => ['Richard', 'Anna', 'Owen'],
+                    'genres' => ['Horror', 'Mystery'],
+                    'image' => 'https://media.themoviedb.org/t/p/w600_and_h900_bestv2/bNn1WyEC8tXK2HucphV87MMLxNQ.jpg',
+                ],
+                [
+                    'title' => 'The Dark Knight',
+                    'description' => 'Batman battles the Joker in Gotham.',
+                    'release_date' => '2008-07-18',
+                    'cast' => ['Christian Bale', 'Heath Ledger'],
+                    'genres' => ['Action', 'Crime'],
+                    'image' => '', // https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg
+                ],
+                [
+                    'title' => 'Dunkirk',
+                    'description' => 'Allied soldiers are rescued during WWII.',
+                    'release_date' => '2017-07-21',
+                    'cast' => ['Fionn Whitehead', 'Tom Hardy'],
+                    'genres' => ['War', 'Drama'],
+                    'image' => 'https://image.tmdb.org/t/p/w500/ebSnODDg9lbsMIaWg2uAbjn7TO5.jpg',
+                ],
+                [
+                    'title' => 'Tenet',
+                    'description' => 'A secret agent manipulates time to prevent World War III.',
+                    'release_date' => '2020-08-26',
+                    'cast' => ['John David Washington', 'Robert Pattinson'],
+                    'genres' => ['Action', 'Sci-Fi'],
+                    'image' => 'https://image.tmdb.org/t/p/w500/k68nPLbIST6NP96JmTxmZijEvCA.jpg',
+                ],
+                [
+                    'title' => 'Avatar',
+                    'description' => 'A marine on an alien planet becomes torn between two worlds.',
+                    'release_date' => '2009-12-18',
+                    'cast' => ['Sam Worthington', 'Zoe Saldana'],
+                    'genres' => ['Adventure', 'Sci-Fi'],
+                    'image' => 'https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg',
+                ],
+                [
+                    'title' => 'Thunderbolts*',
+                    'description' => 'After finding themselves ensnared in a death trap, seven disillusioned castoffs must embark on a dangerous mission that will force them to confront the darkest corners of their pasts.',
+                    'release_date' => '2025-05-02',
+                    'cast' => [
+                        'Florence Pugh',
+                        'Sebastian Stan',
+                        'Julia Louis‑Dreyfus',
+                    ],
+                    'genres' => ['Action', 'Science Fiction', 'Adventure'],
+                    'image' => 'https://media.themoviedb.org/t/p/w600_and_h900_bestv2/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg'
+                ],
+                [
+                        'title' => 'Kaiju No. 8: Mission Recon',
+                        'description' => 'In a Kaiju-filled Japan, Kafka Hibino works in monster disposal. After reuniting with his childhood friend Mina Ashiro, a rising star in the anti-Kaiju Defense Force, he decides to pursue his abandoned dream of joining the Force, when he suddenly transforms into the powerful "Kaiju No. 8." Includes an action-packed recap of the first season and a new original episode, Hoshina\'s Day Off.',
+                        'release_date' => '2025-04-13',
+                        'cast' => [ 'Masaya Fukunishi', 'Wataru Katoh', 'Fairouz Ai'],
+                        'genres' => ['Animation', 'Action', 'Science Fiction'], // :contentReference[oaicite:4]{index=4}
+                        'image' => 'https://media.themoviedb.org/t/p/w600_and_h900_bestv2/1aEfyTWUK8ZBk4aw7Ck0qEoF8PW.jpg',
+                ]
+        ];
+
+    return view('welcome', ['movies' => $movies]);
 });
 
 Route::get('/home', function () {

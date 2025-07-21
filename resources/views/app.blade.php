@@ -9,7 +9,7 @@
 <body class="bg-gray-900 text-white">
     @include('_partials._header')
 
-    <div class="container mx-auto p-5">
+    <div class="container mx-auto p-5 mb-32">
         @yield('content')
     </div>
 
@@ -19,6 +19,8 @@
 {{--            <p class="text-xl text-center mt-6">This is a simple example of laravel 11</p>--}}
 {{--        </div>--}}
 {{--    </div>--}}
+
+    @include('_partials._footer')
 
 </body>
 </html>

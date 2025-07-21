@@ -66,7 +66,7 @@
                                 @method('DELETE')
                             </form>
                             <a href="{{ route('movie.destroy', $loop->index) }}"
-                               onclick="event.preventDefault(); confirm('Are You Sure?'); document.getElementById('delete-form-{{ $loop->index }}').submit();"
+                               onclick="event.preventDefault(); if(confirm('Are You Sure?')); document.getElementById('delete-form-{{ $loop->index }}').submit();"
                                class="bg-red-600 p-1 rounded hover:bg-red-500">
                                 🗑️
                             </a>

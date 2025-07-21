@@ -14,12 +14,12 @@ class MovieController extends Controller implements HasMiddleware
 
         $this->movies = [
                 [
-                    'title' => 'Interstellar',
-                    'description' => 'A mission through a wormhole to save humanity.',
-                    'release_date' => '2014-11-07',
-                    'cast' => ['Matthew McConaughey', 'Anne Hathaway'],
-                    'genres' => ['Sci-Fi', 'Drama'],
-                    'image' => 'https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
+                    'title' => 'Final Destination Bloodlines',
+                    'description' => 'Plagued by a violent recurring nightmare, college student Stefanie heads home to track down the one person who might be able to break the cycle and save her family from the grisly demise that inevitably awaits them all..',
+                    'release_date' => '2025-05-14',
+                    'cast' => ['Richard', 'Anna', 'Owen'],
+                    'genres' => ['Horror', 'Mystery'],
+                    'image' => 'https://media.themoviedb.org/t/p/w600_and_h900_bestv2/bNn1WyEC8tXK2HucphV87MMLxNQ.jpg',
                 ],
                 [
                     'title' => 'The Dark Knight',
@@ -46,14 +46,6 @@ class MovieController extends Controller implements HasMiddleware
                     'image' => 'https://image.tmdb.org/t/p/w500/k68nPLbIST6NP96JmTxmZijEvCA.jpg',
                 ],
                 [
-                    'title' => 'The Prestige',
-                    'description' => 'Two magicians compete in a deadly rivalry.',
-                    'release_date' => '2006-10-20',
-                    'cast' => ['Hugh Jackman', 'Christian Bale'],
-                    'genres' => ['Drama', 'Mystery'],
-                    'image' => 'https://image.tmdb.org/t/p/w500/5MXyQfz8xUP3dIFPTubhTsbFY6N.jpg',
-                ],
-                [
                     'title' => 'Avatar',
                     'description' => 'A marine on an alien planet becomes torn between two worlds.',
                     'release_date' => '2009-12-18',
@@ -62,21 +54,25 @@ class MovieController extends Controller implements HasMiddleware
                     'image' => 'https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg',
                 ],
                 [
-                    'title' => 'Gravity',
-                    'description' => 'Two astronauts are stranded in space after an accident.',
-                    'release_date' => '2013-10-04',
-                    'cast' => ['Sandra Bullock', 'George Clooney'],
-                    'genres' => ['Drama', 'Sci-Fi'],
-                    'image' => 'https://image.tmdb.org/t/p/w500/uPxtxhB2Fy9ihVqtBtNGHmknJqV.jpg',
+                    'title' => 'Thunderbolts*',
+                    'description' => 'After finding themselves ensnared in a death trap, seven disillusioned castoffs must embark on a dangerous mission that will force them to confront the darkest corners of their pasts.',
+                    'release_date' => '2025-05-02',
+                    'cast' => [
+                        'Florence Pugh',
+                        'Sebastian Stan',
+                        'Julia Louis‑Dreyfus',
+                    ],
+                    'genres' => ['Action', 'Science Fiction', 'Adventure'],
+                    'image' => 'https://media.themoviedb.org/t/p/w600_and_h900_bestv2/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg'
                 ],
                 [
-                    'title' => 'The Martian',
-                    'description' => 'An astronaut is left behind on Mars.',
-                    'release_date' => '2015-10-02',
-                    'cast' => ['Matt Damon'],
-                    'genres' => ['Adventure', 'Sci-Fi'],
-                    'image' => 'https://image.tmdb.org/t/p/w500/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg',
-                ],
+                        'title' => 'Kaiju No. 8: Mission Recon',
+                        'description' => 'In a Kaiju-filled Japan, Kafka Hibino works in monster disposal. After reuniting with his childhood friend Mina Ashiro, a rising star in the anti-Kaiju Defense Force, he decides to pursue his abandoned dream of joining the Force, when he suddenly transforms into the powerful "Kaiju No. 8." Includes an action-packed recap of the first season and a new original episode, Hoshina\'s Day Off.',
+                        'release_date' => '2025-04-13',
+                        'cast' => [ 'Masaya Fukunishi', 'Wataru Katoh', 'Fairouz Ai'],
+                        'genres' => ['Animation', 'Action', 'Science Fiction'], // :contentReference[oaicite:4]{index=4}
+                        'image' => 'https://media.themoviedb.org/t/p/w600_and_h900_bestv2/1aEfyTWUK8ZBk4aw7Ck0qEoF8PW.jpg',
+                ]
             ];
 
     }
@@ -123,13 +119,6 @@ class MovieController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
 //        $request->merge(['votes' => 0]); // modifikasi isi request
-//
-//        $this->movies[] = [
-//            'title' => $request->get('title'),
-//            'year' => $request->get('year'),
-//            'rating' => $request->get('rating'),
-//            'votes' => $request->get('votes') // ← ambil dari request
-//        ];
 
         $newMovie = [
             'title' => $request['title'],
@@ -149,6 +138,7 @@ class MovieController extends Controller implements HasMiddleware
 
         $movie = $this->movies[$id];
 
+        // Combining arrays into strings with separator
         $movie['cast'] = implode(',', $movie['cast']);
         $movie['genres'] = implode(',', $movie['genres']);
 
@@ -161,7 +151,7 @@ class MovieController extends Controller implements HasMiddleware
         $this->movies[$id]['title'] = $request['title'];
         $this->movies[$id]['description'] = $request['description'];
         $this->movies[$id]['release_date'] = $request['release_date'];
-        $this->movies[$id]['cast'] = explode(',', $request['cast']);
+        $this->movies[$id]['cast'] = explode(',', $request['cast']); // string -> array
         $this->movies[$id]['genres'] = explode(',', $request['genres']);
         $this->movies[$id]['image'] = $request['image'];
 
