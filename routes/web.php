@@ -214,4 +214,33 @@ Route::middleware('cache.headers:public;max_age=7200;etag')->group(function () {
     });
 });
 
+Route::group(["prefix" => "/session"], function () {
 
+    Route::get('/create', function (Request $request) {
+        $request->session()->put('is_membership', 'yes');
+    //    session(['is_membership' => 'yes']);
+        return 'OK';
+    });
+
+    Route::get('/get', function () {
+        return session('is_membership');
+    });
+
+    Route::get('/input', function (Request $request) {
+        $name = $request->get('name');
+        $hobbie1 = $request->get('hobby1');
+        $hobbie2 = $request->get('hobby2');
+        session(['name' => $name, 'hobbies' => [$hobbie1, $hobbie2] ]);
+        return 'OK';
+    });
+
+    Route::get('/all', function () {
+        return session()->all();
+    });
+
+    Route::get('/forget', function () {
+        session()->forget('name');
+        return 'OK';
+    });
+
+});
