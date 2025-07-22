@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMovieRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Validation\Rule;
 
 class MovieController extends Controller implements HasMiddleware
 {
@@ -116,21 +118,21 @@ class MovieController extends Controller implements HasMiddleware
         return view('movies.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreMovieRequest $request)
     {
-//        $request->merge(['votes' => 0]); // modifikasi isi request
+        // Ganti dari $request->validate() ke $request->validated()
+        $validatedData = $request->validated();
 
         $newMovie = [
-            'title' => $request['title'],
-            'description' => $request['description'],
-            'release_date' => $request['release_date'],
-            'cast' => explode(',', $request['cast']),       // array ['Matt Damon']
-            'genres' => explode(',', $request['genres']),   // array ['Adventure', 'Sci-Fi']
-            'image' => $request['image'],
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'release_date' => $validatedData['release_date'],
+            'cast' => explode(',', $validatedData['cast']),
+            'genres' => explode(',', $validatedData['genres']),
+            'image' => $validatedData['image'],
         ];
 
         $this->movies[] = $newMovie;
-
         return $this->index();
     }
 

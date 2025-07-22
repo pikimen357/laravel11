@@ -161,7 +161,7 @@ Route::post('/upload/picture',
             [\App\Http\Controllers\FileUploadController::class, 'upload']
             )->name('upload.picture');
 
-Route::get('/picture/{filename}', [\App\Http\Controllers\FileUploadController::class, 'showPicture'])
+Route::get('storage/pictures/{filename}', [\App\Http\Controllers\FileUploadController::class, 'showPicture'])
     ->name('picture.show');
 
 Route::get('/response', function () {

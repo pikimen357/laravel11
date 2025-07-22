@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FileRequest;
 use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
 {
 // Controller
-    public function upload(Request $request)
+    public function upload(FileRequest $request)
     {
-        if (!$request->hasFile('picture')) {
-            return "please upload a picture";
-        }
+//        if (!$request->hasFile('picture')) {
+//            return "please upload a picture";
+//        }
 
         $picture = $request->file('picture');
         $filename = $picture->getClientOriginalName();

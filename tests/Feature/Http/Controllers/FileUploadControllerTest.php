@@ -49,7 +49,7 @@ class FileUploadControllerTest extends TestCase
     {
         $file = UploadedFile::fake()->image('sandal.jpg');
 
-        $response = $this->post('/upload/picture', [
+        $response = $this->post('/upload/picture/', [
             'picture' => $file
         ]);
 

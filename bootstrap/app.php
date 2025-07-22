@@ -18,9 +18,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'isAuth' => \App\Http\Middleware\IsAuth::class,
             'hasRole' => \App\Http\Middleware\EnsureUserHasRole::class,
         ]);
-//        $middleware->validateCsrfTokens(except: [
+
+        $middleware->validateCsrfTokens(except: [
 //            '*', // allow all origins to enter this server (dev only!)
-//        ]);
+            'upload/picture',
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
