@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
 //            'About' => '/about',
 //            'Contact' => '/contact',
 //        ]);
+        config(['app.locale' => 'id']);
+	    Carbon::setLocale('id');
     }
 }
