@@ -19,9 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'hasRole' => \App\Http\Middleware\EnsureUserHasRole::class,
         ]);
 
-//        $middleware->validateCsrfTokens(except: [
-////            '*', // allow all origins to enter this server (dev only!)
-//        ]);
+        $middleware->validateCsrfTokens(except: [
+
+            // dev only!!
+            '*',
+        ]);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
