@@ -54,14 +54,14 @@ class CategoryController extends Controller
 
     public function store(Request $request){
 
-        $category = DB::table('categories')->insert([
-            'title' => $request['title'],
-            'slug' => Str::slug($request['title']),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        return $category;
+//        $category = DB::table('categories')->insert([
+//            'title' => $request['title'],
+//            'slug' => Str::slug($request['title']),
+//            'created_at' => now(),
+//            'updated_at' => now(),
+//        ]);
+//
+//        return $category;
 
 //        $categories = DB::table('categories')->insert([
 //            ['title' => 'Komedi', 'slug' => Str::of('komedi')->slug('-')],
@@ -80,17 +80,17 @@ class CategoryController extends Controller
 //        $category->save();
 
         // must match the $fillable
-//        $category = Category::create([
-//            'title' => $request['title'],
-//            'slug' => Str::of($request['title'])->slug('-')
-//        ]);
+        $category = Category::create([
+            'title' => $request['title'],
+            'slug' => Str::of($request['title'])->slug('-')
+        ]);
 
 //        $categories = Category::insert([
 //            ['title' => 'Kocak', 'slug' => Str::of('kocak')->slug('-')],
 //            ['title' => 'Wali', 'slug' => Str::of('wali')->slug('-')],
 //        ]);
 //
-//        return $categories;
+        return $category;
     }
 
     public function update(Request $request, $id){

@@ -257,5 +257,28 @@ Route::group([
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
 
+});
+
+Route::group([
+                "prefix" => "/user/profile",
+                "as" => "user.profile.",
+                "controller" => \App\Http\Controllers\UserController::class,
+            ], function () {
+
+    Route::post('/{id}',  'createProfile')->name('create');
+    Route::get('/{id}',  'getProfile')->name('get');
+    Route::put('/{id}',  'updateProfile')->name('update');
+    Route::delete('/{id}',  'deleteProfile')->name('delete');
 
 });
+
+//Route::post('/user/profile/{id}/' ,
+//    [\App\Http\Controllers\UserController::class, 'createProfile'])->name('user.profile.create');
+
+
+Route::get('/rating/', [\App\Http\Controllers\RatingController::class, 'index']);
+Route::post('movies/{id}/categories', [\App\Http\Controllers\MovieController::class, 'attachCategory']);
+Route::delete('movies/{id}/categories', [\App\Http\Controllers\MovieController::class, 'detachCategory']);
+
+Route::get('sync-category/{id}', [\App\Http\Controllers\MovieController::class, 'syncCategory']);;
+
