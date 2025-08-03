@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -42,6 +44,52 @@ class RatingControllerTest extends TestCase
         $response->assertStatus(200);
         $this->assertFalse($movie->fresh()->categories->contains($categories[0]->id));
         $this->assertTrue($movie->fresh()->categories->contains($categories[1]->id));
+    }
+
+    public function test_can_create_rating()
+    {
+        $user = User::factory()->create();
+        $movie = Movie::factory()->create();
+
+        $response = $this->postJson('/ratings', [
+            'user_id' => $user->id,
+            'movie_id' => $movie->id,
+            'rating' => 4,
+        ]);
+
+        $response->assertStatus(201)
+            ->assertJsonFragment([
+                'user_id' => $user->id,
+                'movie_id' => $movie->id,
+                'rating' => 4,
+            ]);
+
+        $this->assertDatabaseHas('ratings', [
+            'user_id' => $user->id,
+            'movie_id' => $movie->id,
+            'rating' => 4,
+        ]);
+    }
+
+    public function test_get_ratings_by_movie_id()
+    {
+        $movie = Movie::factory()->create();
+        $user = User::factory()->create();
+
+        Rating::factory()->count(4)->create([
+            'movie_id' => $movie->id,
+            'user_id' => $user->id,
+            'rating' => "4",
+        ]);
+
+        $response = $this->getJson("/ratings/{$movie->id}");
+
+        $response->assertStatus(200)
+            ->assertJsonFragment([
+                "id film" => $movie->id,
+                "Judul Film" => $movie->title,
+            ])
+            ->assertJsonCount(4, 'rating');
     }
 
 }

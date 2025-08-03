@@ -15,6 +15,12 @@ class Profile extends Model
         'address',
     ];
 
+    protected function casts(): array{
+        return [
+            'phone' => 'string',
+        ];
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

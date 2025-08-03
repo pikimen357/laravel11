@@ -196,7 +196,7 @@ class MovieController extends Controller implements HasMiddleware
     }
 
     public function syncCategory($id){
-        $movie = Movie::find($id);
+        $movie = Movie::findOrFail($id);
 
         $movie->categories()->sync([3,6,13]);
 

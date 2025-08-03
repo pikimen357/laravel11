@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -151,7 +152,7 @@ Route::controller(\App\Http\Controllers\InputController::class)
 
             Route::post('/date', 'inputDate');
 
-            Route::post('/login', 'login');
+//            Route::post('/login', 'login');
 
             Route::post('/miss-email', 'missEmail');
 
@@ -187,12 +188,12 @@ Route::middleware('cache.headers:public;max_age=7200;etag')->group(function () {
             ->cookie('user', $user);
     });
 
-    Route::get('/logout', function () {
-
-        // redirect to controller
-        return redirect()->action([HomeController::class, 'index'],
-                                    ['authenticated' => true]);
-    });
+//    Route::get('/logout', function () {
+//
+//        // redirect to controller
+//        return redirect()->action([HomeController::class, 'index'],
+//                                    ['authenticated' => true]);
+//    });
 
     Route::get('/dashboard/logout', function () {
 //        return response('logout success', 200)
@@ -282,3 +283,32 @@ Route::delete('movies/{id}/categories', [\App\Http\Controllers\MovieController::
 
 Route::get('sync-category/{id}', [\App\Http\Controllers\MovieController::class, 'syncCategory']);;
 
+
+Route::group([
+        'prefix' => 'register',
+        'controller' => \App\Http\Controllers\AuthController::class,
+        'as' => 'register.'
+    ], function () {
+
+            Route::get('/', 'showRegisterForm')->name('form');
+            Route::post('/', 'register')->name('store');;
+});
+
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm'])
+    ->name('login');
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])
+    ->name('login.store');
+
+Route::middleware('auth')->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])
+        ->name('logout');
+
+});
+
+Route::post('/ratings', [RatingController::class, 'store']);
+Route::get('/ratings/{movie_id}', [RatingController::class, 'getByMovie']);

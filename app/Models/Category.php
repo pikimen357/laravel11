@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -14,8 +15,12 @@ class Category extends Model
         'slug'
     ];
 
-    public function movies(){
-        return $this->belongsToMany(Movie::class, 'category_movie', 'category_id', 'movie_id');
+    public function movies(): BelongsToMany{
+        return $this->belongsToMany(Movie::class,
+            'category_movie',
+            'category_id',
+            'movie_id'
+        );
     }
 
 }
