@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
 //        ]);
         config(['app.locale' => 'id']);
 	    Carbon::setLocale('id');
+
+        JsonResource::withoutWrapping();
     }
 }

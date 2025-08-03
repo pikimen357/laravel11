@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RatingController;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -312,3 +314,8 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/ratings', [RatingController::class, 'store']);
 Route::get('/ratings/{movie_id}', [RatingController::class, 'getByMovie']);
+
+
+Route::get('user-resource', function () {
+    return UserResource::collection(User::all());
+});
